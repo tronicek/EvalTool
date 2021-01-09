@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<clones>
+    <clone nlines="3" similarity="100">
+        <source file="java/org/mockito/internal/configuration/plugins/PluginRegistry.java" startline="26" startcolumn="5" endline="29" endcolumn="5"/>
+        <source file="java/org/mockito/internal/configuration/plugins/PluginRegistry.java" startline="37" startcolumn="5" endline="39" endcolumn="5"/>
+    </clone>
+    <clone nlines="10" similarity="100">
+        <source file="java/org/mockito/internal/exceptions/Reporter.java" startline="578" startcolumn="5" endline="587" endcolumn="5"/>
+        <source file="java/org/mockito/internal/exceptions/Reporter.java" startline="691" startcolumn="5" endline="700" endcolumn="5"/>
+    </clone>
+    <clone nlines="20" similarity="100">
+        <source file="java/org/mockito/internal/matchers/apachecommons/EqualsBuilder.java" startline="506" startcolumn="5" endline="525" endcolumn="5"/>
+        <source file="java/org/mockito/internal/matchers/apachecommons/EqualsBuilder.java" startline="537" startcolumn="5" endline="556" endcolumn="5"/>
+        <source file="java/org/mockito/internal/matchers/apachecommons/EqualsBuilder.java" startline="568" startcolumn="5" endline="587" endcolumn="5"/>
+        <source file="java/org/mockito/internal/matchers/apachecommons/EqualsBuilder.java" startline="599" startcolumn="5" endline="618" endcolumn="5"/>
+        <source file="java/org/mockito/internal/matchers/apachecommons/EqualsBuilder.java" startline="630" startcolumn="5" endline="649" endcolumn="5"/>
+        <source file="java/org/mockito/internal/matchers/apachecommons/EqualsBuilder.java" startline="661" startcolumn="5" endline="680" endcolumn="5"/>
+        <source file="java/org/mockito/internal/matchers/apachecommons/EqualsBuilder.java" startline="754" startcolumn="5" endline="773" endcolumn="5"/>
+    </clone>
+</clones>
