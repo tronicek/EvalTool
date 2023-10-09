@@ -14,7 +14,7 @@ import javax.xml.bind.Unmarshaller;
 /**
  * This class separates clones in a class to clone pairs.
  *
- * @author Zdenek Tronicek, tronicek@tarleton.edu
+ * @author Zdenek Tronicek
  */
 public class Separator {
 

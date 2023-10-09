@@ -21,7 +21,7 @@ import javax.xml.bind.Unmarshaller;
 /**
  * This class adds the source code to the NiCad's XML file.
  *
- * @author Zdenek Tronicek, tronicek@tarleton.edu
+ * @author Zdenek Tronicek
  */
 public class Sourcer {
 
@@ -96,7 +96,14 @@ public class Sourcer {
             out.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
             out.println("<clones>");
             for (NiCadClone clone : clones.getClones()) {
-                out.printf("    <clone nlines=\"%d\" similarity=\"%d\">%n", clone.getNlines(), clone.getSimilarity());
+                out.printf("    <clone nlines=\"%d\"", clone.getNlines());
+                if (clone.getDistance() != null) {
+                    out.printf(" distance=\"%d\"", clone.getDistance());
+                }
+                if (clone.getSimilarity() != null) {
+                    out.printf(" similarity=\"%d\"", clone.getSimilarity());
+                }
+                out.printf(">%n");
                 for (NiCadSource src : clone.getSources()) {
                     out.printf("        <source file=\"%s\" startline=\"%d\"", src.getFile(), src.getStartline());
                     if (src.getStartcolumn() != null) {

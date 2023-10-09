@@ -6,7 +6,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  *
- * @author Zdenek Tronicek, tronicek@tarleton.edu
+ * @author Zdenek Tronicek
  */
 public class CounterHandler extends DefaultHandler {
 

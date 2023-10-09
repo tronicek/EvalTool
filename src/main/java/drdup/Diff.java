@@ -17,7 +17,7 @@ import javax.xml.bind.Unmarshaller;
  * This class takes two NiCad's XML file and subtracts them. The difference is
  * written to a file.
  *
- * @author Zdenek Tronicek, tronicek@tarleton.edu
+ * @author Zdenek Tronicek
  */
 public class Diff {
 

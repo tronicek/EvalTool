@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * NiCadClone comparator.
  * 
- * @author Zdenek Tronicek, tronicek@tarleton.edu
+ * @author Zdenek Tronicek
  */
 public class NiCadCloneComparator implements Comparator<NiCadClone> {
 

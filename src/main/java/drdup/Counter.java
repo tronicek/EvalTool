@@ -7,7 +7,7 @@ import xml.CounterHandler;
 /**
  * This class prints the number of clones in the input file.
  *
- * @author Zdenek Tronicek, tronicek@tarleton.edu
+ * @author Zdenek Tronicek
  */
 public class Counter {
 

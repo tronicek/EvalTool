@@ -20,7 +20,7 @@ import javax.xml.bind.Marshaller;
 /**
  * The convertor from Deckard's output format to NiCad's output format.
  *
- * @author Zdenek Tronicek, tronicek@tarleton.edu
+ * @author Zdenek Tronicek
  */
 public class NiCadConvertor {
 

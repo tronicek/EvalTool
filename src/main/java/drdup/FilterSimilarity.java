@@ -2,40 +2,43 @@ package drdup;
 
 import edu.tarleton.drdup2.nicad.NiCadClone;
 import edu.tarleton.drdup2.nicad.NiCadClones;
-import edu.tarleton.drdup2.nicad.NiCadSource;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 /**
- * This class changes the directory in the NiCad's XML file.
+ * This class filters the clones with the specified similarity.
  *
  * @author Zdenek Tronicek
  */
-public class ChangeDir {
+public class FilterSimilarity {
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
-            System.err.println("two arguments expected: sourceDir nicadFile");
+        if (args.length != 3) {
+            System.err.println("three arguments expected: minSimilarity maxSimilarity inputFile");
             return;
         }
-        String srcDir = args[0];
-        String nicadFile = args[1];
+        int minSimilarity = Integer.parseInt(args[0]);
+        int maxSimilarity = Integer.parseInt(args[1]);
+        String inputFile = args[2];
+        List<NiCadClone> cls = new ArrayList<>();
         JAXBContext ctx = JAXBContext.newInstance(NiCadClones.class);
         Unmarshaller unmarshaller = ctx.createUnmarshaller();
-        NiCadClones nicad = (NiCadClones) unmarshaller.unmarshal(new File(nicadFile));
+        NiCadClones nicad = (NiCadClones) unmarshaller.unmarshal(new File(inputFile));
         for (NiCadClone clone : nicad.getClones()) {
-            for (NiCadSource src : clone.getSources()) {
-                String file = src.getFile();
-                String nfile = file.substring(srcDir.length());
-                src.setFile(nfile);
+            int sim = clone.getSimilarity();
+            if (minSimilarity <= sim && sim <= maxSimilarity) {
+                cls.add(clone);
             }
         }
+        nicad.setClones(cls);
         Marshaller marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        String outputFile = nicadFile.replace(".xml", "-dir.xml");
+        String outputFile = inputFile.replace(".xml", "-filtered.xml");
         try (FileOutputStream out = new FileOutputStream(outputFile)) {
             marshaller.marshal(nicad, out);
         }
