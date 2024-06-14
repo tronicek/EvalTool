@@ -51,6 +51,7 @@ public class Separator {
                         ss2.add(ss.get(i));
                         ss2.add(ss.get(j));
                         NiCadClone cl = new NiCadClone(clone.getNlines(), clone.getSimilarity(), ss2);
+                        cl.setDistance(clone.getDistance());
                         cc.add(cl);
                     }
                 }

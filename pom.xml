@@ -36,7 +36,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>edu.tarleton.drduplex.Main</mainClass>
+                            <mainClass>edu.tarleton.evaltool.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
