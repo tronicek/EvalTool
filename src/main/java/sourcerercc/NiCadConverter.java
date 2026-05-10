@@ -17,20 +17,21 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 /**
- * The convertor from SourcererCC's output format to NiCad's output format.
+ * The converter from SourcererCC's output format to NiCad's output format.
  * 
  * @author Zdenek Tronicek
  */
-public class NiCadConvertor {
+public class NiCadConverter {
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 3) {
-            System.err.println("expected arguments: methods_file clones_file source_dir");
+        if (args.length != 4) {
+            System.err.println("expected arguments: methods_file clones_file source_dir output_file");
             return;
         }
         String methodsFile = args[0];
         String clonesFile = args[1];
         String sourceDir = args[2];
+        String outfile = args[3];
         LineConsumer cons = new LineConsumer(sourceDir);
         Path path = Paths.get(methodsFile);
         Files.lines(path).forEach(cons);
@@ -39,7 +40,6 @@ public class NiCadConvertor {
         Path path2 = Paths.get(clonesFile);
         Files.lines(path2).forEach(cc);
         NiCadClones clones = new NiCadClones(cc.getClones());
-        String outfile = clonesFile.replace(".txt", ".xml");
         JAXBContext ctx = JAXBContext.newInstance("edu.tarleton.drdup2.nicad");
         Marshaller marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -50,18 +50,14 @@ public class NiCadConvertor {
 
     static class Method {
 
-        long fileId;
         String file;
         long methodId;
-        String method;
         int begin;
         int end;
 
-        public Method(long fileId, String file, long methodId, String method, int begin, int end) {
-            this.fileId = fileId;
+        public Method(String file, long methodId, int begin, int end) {
             this.file = file;
             this.methodId = methodId;
-            this.method = method;
             this.begin = begin;
             this.end = end;
         }
@@ -85,6 +81,7 @@ public class NiCadConvertor {
 
         private final String sourceDir;
         private final Map<Long, Method> methods = new HashMap<>();
+        private String currentPath;
 
         public LineConsumer(String sourceDir) {
             this.sourceDir = sourceDir;
@@ -96,17 +93,19 @@ public class NiCadConvertor {
 
         @Override
         public void accept(String line) {
-            String[] fields = line.split("[;:]");
-            long fileId = Long.parseLong(fields[0]);
-            String path = fields[1];
-            assert path.startsWith(sourceDir);
-            String file = path.substring(sourceDir.length());
-            long methodId = Long.parseLong(fields[2]);
-            String name = fields[3];
-            int begin = Integer.parseInt(fields[4]);
-            int end = Integer.parseInt(fields[5]);
-            Method m = new Method(fileId, file, methodId, name, begin, end);
-            methods.put(methodId, m);
+            String[] fields = line.split(",");
+            assert fields[0].startsWith("f") || fields[0].startsWith("b");
+            if (fields[0].startsWith("f")) {
+                String fpath = fields[2].substring(1, fields[2].length() - 1);
+                assert fpath.startsWith(sourceDir);
+                currentPath = fpath.substring(sourceDir.length());
+            } else {
+                long methodId = Long.parseLong(fields[1]);
+                int begin = Integer.parseInt(fields[6]);
+                int end = Integer.parseInt(fields[7]);
+                Method m = new Method(currentPath, methodId, begin, end);
+                methods.put(methodId, m);
+            }
         }
     }
 

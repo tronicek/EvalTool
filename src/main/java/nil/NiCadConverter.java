@@ -14,11 +14,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 /**
- * The convertor from NIL's output format to NiCad's output format.
+ * The converter from NIL's output format to NiCad's output format.
  * 
  * @author Zdenek Tronicek
  */
-public class NiCadConvertor {
+public class NiCadConverter {
 
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
